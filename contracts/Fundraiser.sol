@@ -2,8 +2,13 @@
 pragma solidity >= 0.4.0 <0.9.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract Fundraiser is Ownable {
+  using SafeMath for uint256;
+  uint256 public totalDonations;
+  uint256 public donationsCount;
+
   struct Donation {
     uint256 value;
     uint256 date;
@@ -48,6 +53,8 @@ contract Fundraiser is Ownable {
       date: block.timestamp
     });
     _donations[msg.sender].push(donation);
+    totalDonations = totalDonations.add(msg.value);
+    donationsCount++;
   }
 
   function myDonations() public view returns (

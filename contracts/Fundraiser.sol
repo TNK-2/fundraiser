@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 contract Fundraiser is Ownable {
   using SafeMath for uint256;
   uint256 public totalDonations;
+  uint256 public donationsCount;
 
   struct Donation {
     uint256 value;
@@ -53,6 +54,7 @@ contract Fundraiser is Ownable {
     });
     _donations[msg.sender].push(donation);
     totalDonations = totalDonations.add(msg.value);
+    donationsCount++;
   }
 
   function myDonations() public view returns (

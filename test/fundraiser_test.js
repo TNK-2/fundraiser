@@ -111,6 +111,18 @@ contract ("Fundraiser", accounts => {
         diff, value, "difference should match the donation value"
       );
     })
+
+    it("increases donationsCount", async () => {
+      const currentDonationsCount = await fundraiser.donationsCount();
+      await fundraiser.donate({from: donor, value});
+      const newDonationsCount = await fundraiser.donationsCount();
+
+      assert.equal(
+        1,
+        newDonationsCount - currentDonationsCount,
+        "donations count should increment by 1"
+      );
+    });
   });
 
 });

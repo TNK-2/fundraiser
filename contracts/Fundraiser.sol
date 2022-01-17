@@ -9,6 +9,8 @@ contract Fundraiser is Ownable {
   uint256 public totalDonations;
   uint256 public donationsCount;
 
+  event DonationReceived(address indexed donor, uint256 value);
+
   struct Donation {
     uint256 value;
     uint256 date;
@@ -55,6 +57,8 @@ contract Fundraiser is Ownable {
     _donations[msg.sender].push(donation);
     totalDonations = totalDonations.add(msg.value);
     donationsCount++;
+
+    emit DonationReceived(msg.sender, msg.value);
   }
 
   function myDonations() public view returns (

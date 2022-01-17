@@ -123,6 +123,13 @@ contract ("Fundraiser", accounts => {
         "donations count should increment by 1"
       );
     });
+
+    it("emits the DonationsReceived event", async () => {
+      const tx = await fundraiser.donate({from: donor, value});
+      const expectedEvent = "DonationReceived";
+      const actualEvent = tx.logs[0].event;
+      assert.equal(actualEvent, expectedEvent, "events should match");
+    });
   });
 
 });
